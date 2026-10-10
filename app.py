@@ -2688,7 +2688,7 @@ def dashboard():
         "dashboard.html",
         username=current_user.username
     )
-
+create_database()
 
 # =========================================================
 # START APPLICATION
