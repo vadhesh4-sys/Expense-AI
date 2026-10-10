@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account - Expense Assistant</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #667eea,
+                    #764ba2
+                );
+
+            padding: 20px;
+
+        }
+
+
+        .register-container {
+
+            width: 100%;
+
+            max-width: 420px;
+
+            background: white;
+
+            padding: 40px;
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 20px 50px
+                rgba(0, 0, 0, 0.25);
+
+        }
+
+
+        .logo {
+
+            text-align: center;
+
+            font-size: 55px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        h1 {
+
+            text-align: center;
+
+            color: #333;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            color: #444;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 14px 16px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 12px;
+
+            outline: none;
+
+            font-size: 15px;
+
+        }
+
+
+        input:focus {
+
+            border-color: #667eea;
+
+        }
+
+
+        .register-button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #667eea,
+                    #764ba2
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 5px;
+
+        }
+
+
+        .register-button:hover {
+
+            opacity: 0.9;
+
+        }
+
+
+        .error {
+
+            background: #ffe8e8;
+
+            color: #d63031;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            margin-bottom: 20px;
+
+            font-size: 14px;
+
+        }
+
+
+        .login-text {
+
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #777;
+
+            font-size: 14px;
+
+        }
+
+
+        .login-text a {
+
+            color: #667eea;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+        }
+
+
+        .login-text a:hover {
+
+            text-decoration: underline;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="register-container">
+
+
+    <div class="logo">
+
+        👤
+
+    </div>
+
+
+    <h1>
+
+        Create Account
+
+    </h1>
+
+
+    <p class="subtitle">
+
+        Start managing your expenses
+
+    </p>
+
+
+    {% if error %}
+
+    <div class="error">
+
+        ❌ {{ error }}
+
+    </div>
+
+    {% endif %}
+
+
+    <form method="POST">
+
+
+        <div class="form-group">
+
+            <label>
+
+                Username
+
+            </label>
+
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Create username"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+
+                Password
+
+            </label>
+
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Create password"
+                minlength="4"
+                required
+            >
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="register-button">
+
+            🚀 Create Account
+
+        </button>
+
+
+    </form>
+
+
+    <p class="login-text">
+
+        Already have an account?
+
+        <a href="/login">
+
+            Login
+
+        </a>
+
+    </p>
+
+
+</div>
+
+
+</body>
+
+</html>

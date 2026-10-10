@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Expense AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #04091b;
+      --panel: rgba(8, 19, 48, .88);
+      --border: rgba(101, 133, 255, .25);
+      --muted: #9eb1d8;
+      --text: #f6f8ff;
+      --blue: #36a4ff;
+      --purple: #853cff;
+      --pink: #e73dc9;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 14% 18%, rgba(25, 104, 255, .23), transparent 34%),
+        radial-gradient(ellipse at 88% 78%, rgba(155, 34, 255, .22), transparent 35%),
+        linear-gradient(135deg, #030817, #080d27 55%, #100725);
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6vw;
+      border-bottom: 1px solid rgba(100, 128, 255, .18);
+      background: rgba(4, 10, 29, .62);
+      backdrop-filter: blur(18px);
+    }
+    .brand { display: flex; align-items: center; gap: 13px; text-decoration: none; color: white; }
+    .brand-mark {
+      width: 48px; height: 48px; display: grid; place-items: center;
+      border-radius: 15px; font-size: 25px;
+      background: linear-gradient(145deg, #32b7ff, #6950ff 62%, #c92be8);
+      box-shadow: 0 0 28px rgba(86, 83, 255, .36);
+    }
+    .brand-name { font-size: 20px; font-weight: 800; letter-spacing: -.5px; }
+    .brand-sub { margin-top: 4px; color: #9cb8ec; font-size: 10px; letter-spacing: .8px; text-transform: uppercase; }
+    .top-link { color: #d8e3ff; text-decoration: none; font-size: 13px; }
+    .top-link span { color: #76b9ff; font-weight: 700; margin-left: 5px; }
+    .page {
+      flex: 1; width: 100%; max-width: 1240px; margin: 0 auto;
+      padding: 48px 28px; display: grid; grid-template-columns: 1.05fr .95fr;
+      gap: clamp(30px, 6vw, 85px); align-items: center;
+    }
+    .intro { padding: 12px 0; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 13px; border-radius: 30px; border: 1px solid rgba(72, 154, 255, .3);
+      background: rgba(17, 49, 103, .38); color: #b9d7ff; font-size: 11px; font-weight: 700;
+      letter-spacing: .8px; text-transform: uppercase;
+    }
+    .eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: #00e0b1; box-shadow: 0 0 12px #00e0b1; }
+    h1 {
+      margin: 24px 0 17px; max-width: 580px;
+      font-size: clamp(38px, 5vw, 64px); line-height: 1.08; letter-spacing: -2.8px;
+    }
+    h1 .gradient {
+      background: linear-gradient(95deg, #64caff, #9b79ff 53%, #ef70df);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .intro-copy { max-width: 490px; color: #aabbe0; font-size: 15px; line-height: 1.85; }
+    .feature-list { margin-top: 30px; display: grid; gap: 15px; }
+    .feature { display: flex; align-items: center; gap: 13px; color: #dbe5ff; font-size: 13px; }
+    .feature-icon {
+      width: 37px; height: 37px; display: grid; place-items: center; flex-shrink: 0;
+      border-radius: 12px; color: #d9eaff; font-size: 17px;
+      border: 1px solid rgba(97, 130, 255, .3); background: rgba(29, 53, 111, .55);
+    }
+    .login-card {
+      width: 100%; max-width: 460px; justify-self: end; padding: 34px;
+      border: 1px solid var(--border); border-radius: 25px;
+      background: linear-gradient(145deg, rgba(13, 28, 66, .94), rgba(7, 15, 39, .96));
+      box-shadow: 0 28px 90px rgba(0, 0, 0, .32), inset 0 1px 0 rgba(255,255,255,.04);
+      position: relative; overflow: hidden;
+    }
+    .login-card::before {
+      content: ""; position: absolute; height: 2px; top: 0; left: 13%; right: 13%;
+      background: linear-gradient(90deg, transparent, #3baeff, #b24bff, transparent);
+    }
+    .card-icon {
+      width: 57px; height: 57px; display: grid; place-items: center; font-size: 28px;
+      border-radius: 18px; background: linear-gradient(145deg, #1c9dff, #6742f5 70%, #b42de4);
+      box-shadow: 0 10px 28px rgba(95, 68, 255, .25); margin-bottom: 23px;
+    }
+    .login-card h2 { margin: 0; font-size: 27px; letter-spacing: -.8px; }
+    .card-subtitle { margin: 9px 0 27px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .flash-messages { margin-bottom: 16px; }
+    .flash-message {
+      border: 1px solid rgba(255, 90, 133, .35); background: rgba(130, 28, 65, .2);
+      color: #ffc2d2; padding: 11px 13px; border-radius: 10px; margin-bottom: 8px;
+      font-size: 12px; line-height: 1.5;
+    }
+    .field { margin-bottom: 17px; }
+    .field label { display: block; margin-bottom: 9px; color: #dfe8ff; font-size: 12px; font-weight: 600; }
+    .input-wrap { position: relative; }
+    .field input {
+      width: 100%; height: 49px; border-radius: 12px; outline: none;
+      padding: 0 44px 0 14px; border: 1px solid #263f76;
+      color: #f5f7ff; background: rgba(3, 11, 30, .8); font-size: 13px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .field input::placeholder { color: #7186b2; }
+    .field input:focus { border-color: #6b75ff; box-shadow: 0 0 0 3px rgba(103, 91, 255, .13); }
+    .field-symbol { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: #8fa9e2; font-size: 17px; }
+    .password-toggle {
+      position: absolute; right: 11px; top: 50%; transform: translateY(-50%);
+      border: 0; background: transparent; color: #9bb3e5; cursor: pointer; padding: 5px; font-size: 11px;
+    }
+    .form-options { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 5px 0 23px; }
+    .remember { display: flex; align-items: center; gap: 8px; color: #aebfe2; font-size: 11px; }
+    .remember input { accent-color: #8b45ff; }
+    .forgot { color: #a9c5ff; text-decoration: none; font-size: 11px; }
+    .submit-btn {
+      width: 100%; min-height: 50px; border: 0; border-radius: 12px; color: white;
+      font-size: 14px; font-weight: 800; letter-spacing: .2px;
+      background: linear-gradient(100deg, #168dff, #6544ff 58%, #b42ce7);
+      box-shadow: 0 9px 25px rgba(96, 58, 255, .28); transition: transform .2s, filter .2s;
+    }
+    .submit-btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
+    .divider { display: flex; align-items: center; gap: 12px; margin: 22px 0; color: #7188b5; font-size: 10px; }
+    .divider::before, .divider::after { content: ""; height: 1px; flex: 1; background: #20345e; }
+    .register-line { text-align: center; color: #9db0d7; font-size: 12px; }
+    .register-line a { color: #91baff; text-decoration: none; font-weight: 700; margin-left: 4px; }
+    .secure-note { margin-top: 24px; display: flex; justify-content: center; align-items: center; gap: 7px; color: #718ab7; font-size: 10px; }
+    .footer { padding: 18px 24px; text-align: center; color: #61779f; font-size: 10px; border-top: 1px solid rgba(100,128,255,.12); }
+    @media (max-width: 850px) {
+      .page { grid-template-columns: 1fr; max-width: 520px; gap: 28px; padding: 34px 20px; }
+      .intro { text-align: center; }
+      .intro-copy { margin-left: auto; margin-right: auto; }
+      .feature-list { display: none; }
+      .login-card { justify-self: center; padding: 28px; }
+      h1 { font-size: clamp(36px, 8vw, 50px); letter-spacing: -1.8px; margin-top: 18px; }
+    }
+    @media (max-width: 480px) {
+      .topbar { height: 73px; padding: 0 16px; }
+      .brand-mark { width: 41px; height: 41px; font-size: 22px; border-radius: 13px; }
+      .brand-name { font-size: 17px; }
+      .brand-sub { font-size: 8px; }
+      .top-link { font-size: 11px; }
+      .page { padding: 28px 14px; }
+      .eyebrow { font-size: 9px; }
+      .intro-copy { font-size: 13px; }
+      .login-card { padding: 23px 19px; border-radius: 20px; }
+      .login-card h2 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/login">
+      <div class="brand-mark">✦</div>
+      <div>
+        <div class="brand-name">Expense <span style="color:#9e8bff">AI</span></div>
+        <div class="brand-sub">Smart personal finance</div>
+      </div>
+    </a>
+    <a class="top-link" href="/register">New here? <span>Create account ↗</span></a>
+  </header>
+
+  <main class="page">
+    <section class="intro">
+      <div class="eyebrow"><span class="eyebrow-dot"></span> Your money, made smarter</div>
+      <h1>Take control of your money.<br><span class="gradient">One smart step at a time.</span></h1>
+      <p class="intro-copy">
+        Welcome to your personal finance space. Track expenses through chat,
+        understand your spending patterns, and build better money habits with Expense AI.
+      </p>
+      <div class="feature-list">
+        <div class="feature"><span class="feature-icon">✦</span><span>Log expenses naturally with your AI chat assistant</span></div>
+        <div class="feature"><span class="feature-icon">◔</span><span>Explore monthly summaries, charts, and spending trends</span></div>
+        <div class="feature"><span class="feature-icon">♧</span><span>Stay on track with budgets and personalized saving tips</span></div>
+      </div>
+    </section>
+
+    <section class="login-card">
+      <div class="card-icon">🤖</div>
+      <h2>Welcome back</h2>
+      <p class="card-subtitle">Sign in to continue to your Expense AI dashboard and chat assistant.</p>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flash-messages">
+            {% for category, message in messages %}
+              <div class="flash-message">{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <form method="POST" action="{{ url_for('login') }}" autocomplete="on">
+        <div class="field">
+          <label for="username">Username or email</label>
+          <div class="input-wrap">
+            <input id="username" name="username" type="text" placeholder="Enter your username" autocomplete="username" required>
+            <span class="field-symbol">♙</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <input id="password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" required>
+            <button class="password-toggle" id="togglePassword" type="button" aria-label="Show password">Show</button>
+          </div>
+        </div>
+
+        <div class="form-options">
+          <label class="remember"><input type="checkbox" name="remember"> Remember me</label>
+          <a class="forgot" href="#" id="forgotLink">Forgot password?</a>
+        </div>
+
+        <button class="submit-btn" type="submit">Sign in to Expense AI&nbsp; →</button>
+      </form>
+
+      <div class="divider">NEW TO EXPENSE AI?</div>
+      <div class="register-line">Don't have an account? <a href="/register">Create one</a></div>
+      <div class="secure-note"><span>🔒</span> Your personal finance data stays protected</div>
+    </section>
+  </main>
+
+  <footer class="footer">© 2026 Expense AI · Smart personal finance companion</footer>
+
+  <script>
+    const passwordInput = document.getElementById("password");
+    const togglePassword = document.getElementById("togglePassword");
+
+    togglePassword.addEventListener("click", function () {
+      const show = passwordInput.type === "password";
+      passwordInput.type = show ? "text" : "password";
+      togglePassword.textContent = show ? "Hide" : "Show";
+      togglePassword.setAttribute("aria-label", show ? "Hide password" : "Show password");
+    });
+
+    document.getElementById("forgotLink").addEventListener("click", function (event) {
+      event.preventDefault();
+      alert("Please contact your administrator to reset your password.");
+    });
+  </script>
+</body>
+</html>
